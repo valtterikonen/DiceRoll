@@ -12,6 +12,13 @@ pipeline {
         }
         stage('Build') {
             steps {
+                withEnv(["JAVA_HOME=C:\\Program Files\\Java\\jdk-21"]) {
+                    bat 'mvn clean package'
+                }
+            }
+        }
+        stage('Build') {
+            steps {
                 bat 'mvn clean package'
             }
         }
