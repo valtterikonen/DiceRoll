@@ -17,8 +17,10 @@ pipeline {
         }
         stage('Build') {
         steps {
-                withEnv(["JAVA_HOME=C:\\Program Files\\Java\\jdk-21"]) {
-                    bat 'mvn clean package'
+                dir('DiceRoll') { // Navigate to the DiceRoll directory
+                    script {
+                        bat 'mvn clean package -X' // Use -X for debug information
+                    }
                 }
         }
         }
