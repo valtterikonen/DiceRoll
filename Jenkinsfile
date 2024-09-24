@@ -5,11 +5,15 @@ pipeline {
         jdk 'JDK21'     // Ensure JDK is installed
     }
     stages {
-        stage('Checkout Code') {
+         stage('Checkout') {
             steps {
-                git branch: "main", url: 'https://github.com/yourusername/dice-roll-app.git'
+                checkout([$class: 'GitSCM', 
+                    branches: [[name: '*/master']], 
+                    userRemoteConfigs: [[url: 'git@github.com:valtterikonen/DiceRoll.git', 
+                    credentialsId: 'your-credentials-id']]
+                ])
             }
-        }
+         }
         stage('Build') {
             steps {
                 bat 'mvn clean package'
