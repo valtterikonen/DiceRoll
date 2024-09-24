@@ -17,11 +17,10 @@ pipeline {
                 }
             }
         }
-        stage('Build') {
             steps {
                 bat 'mvn clean package'
             }
-        }
+    
         stage('Run Unit Tests') {
             steps {
                 bat 'mvn test'
