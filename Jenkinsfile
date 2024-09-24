@@ -1,50 +1,37 @@
 pipeline {
     agent any
+    tools {
+        maven 'maven'  // Ensure Maven is installed
+        jdk 'JDK21'     // Ensure JDK is installed
+    }
     stages {
-        stage('Checkout') {
+        stage('Checkout Code') {
             steps {
-                // Checkout the code from the Git repository using the specified credentials
-                checkout([$class: 'GitSCM', 
-                    branches: [[name: '*/master']], 
-                    userRemoteConfigs: [[
-                        url: 'git@github.com:valtterikonen/DiceRoll.git', // Replace with your actual repository URL
-                        credentialsId: '15a8b23c-fc66-4153-82e7-aff21538f3be' // Your credentials ID
-                    ]]
-                ])
+                git branch: "master", url: 'https://github.com/yourusername/dice-roll-app.git'
             }
         }
         stage('Build') {
             steps {
-                // Add your build steps here, e.g., Maven or Gradle build
-                sh 'mvn clean install' // Example for Maven
+                bat 'mvn clean package'
             }
         }
         stage('Run Unit Tests') {
             steps {
-                // Add steps to run your unit tests here
-                sh 'mvn test' // Example for running tests with Maven
+                bat 'mvn test'
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'  // Capture test reports
+                }
             }
         }
         stage('Code Coverage Report') {
             steps {
-                // Add steps to generate and publish code coverage report
-                sh 'mvn cobertura:cobertura' // Example for code coverage
+                bat 'mvn jacoco:report'
+            }
+            post {
+                always {
+                    jacoco execPattern: 'target/jacoco.exec'
+                }
             }
         }
-    }
-    post {
-        always {
-            // Steps that will run regardless of build success or failure
-            echo 'Pipeline completed.'
-        }
-        success {
-            // Steps that will run if the build is successful
-            echo 'Build completed successfully!'
-        }
-        failure {
-            // Steps that will run if the build fails
-            echo 'Build failed. Check the logs for more details.'
-        }
-    }
-}
-
