@@ -10,11 +10,14 @@ pipeline {
                 git url: 'https://github.com/valtterikonen/DiceRoll.git', branch: 'master'
             }
         }
+        stage('List Workspace') {
+            steps {
+                bat 'dir'  // List files in the workspace
+            }
+        }
         stage('Build') {
             steps {
-                withEnv(["JAVA_HOME=C:\\Program Files\\Java\\jdk-21"]) {
-                    bat 'mvn clean package'
-                }
+                bat 'mvn clean package -X'  // Run Maven with debug information
             }
         }
         stage('Run Unit Tests') {
