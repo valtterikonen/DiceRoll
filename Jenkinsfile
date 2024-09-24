@@ -7,22 +7,13 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git url: 'https://github.com/valtterikonen/DiceRoll.git', branch: 'master'
-            }
-        }
-        stage('List Workspace') {
-            steps {
-                bat 'dir'  // List files in the workspace
+                git 'https://github.com/yourusername/dice-roll-app.git'
             }
         }
         stage('Build') {
-        steps {
-                dir('DiceRoll') { // Navigate to the DiceRoll directory
-                    script {
-                        bat 'mvn clean package -X' // Use -X for debug information
-                    }
-                }
-        }
+            steps {
+                bat 'mvn clean package'
+            }
         }
         stage('Run Unit Tests') {
             steps {
@@ -46,3 +37,5 @@ pipeline {
         }
     }
 }
+
+
