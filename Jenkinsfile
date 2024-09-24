@@ -16,11 +16,11 @@ pipeline {
             }
         }
         stage('Build') {
-            steps {
-        dir('DiceRoll') {
-            bat 'mvn clean package -X'
+        steps {
+                withEnv(["JAVA_HOME=C:\\Program Files\\Java\\jdk-21"]) {
+                    bat 'mvn clean package'
+                }
         }
-    }
         }
         stage('Run Unit Tests') {
             steps {
