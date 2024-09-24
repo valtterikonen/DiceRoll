@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: "master", url: 'https://github.com/valtterikonen/DiceRoll.git'
+                git url: 'https://github.com/valtterikonen/DiceRoll.git', branch: 'master'
             }
         }
         stage('Build') {
