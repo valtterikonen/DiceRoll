@@ -10,7 +10,7 @@ pipeline {
                 checkout([$class: 'GitSCM', 
                     branches: [[name: '*/master']], 
                     userRemoteConfigs: [[url: 'git@github.com:valtterikonen/DiceRoll.git', 
-                    credentialsId: 'your-credentials-id']]
+                    credentialsId: '15a8b23c-fc66-4153-82e7-aff21538f3be']]
                 ])
             }
          }
