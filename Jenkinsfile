@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven 'Maven3.9.9'  // Ensure Maven is installed
+        maven 'maven'  // Ensure Maven is installed
         jdk 'JDK21'     // Ensure JDK is installed
     }
     stages {
