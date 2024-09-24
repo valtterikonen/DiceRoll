@@ -17,8 +17,10 @@ pipeline {
         }
         stage('Build') {
             steps {
-                bat 'mvn clean package -X'  // Run Maven with debug information
-            }
+        dir('DiceRoll') {
+            bat 'mvn clean package -X'
+        }
+    }
         }
         stage('Run Unit Tests') {
             steps {
