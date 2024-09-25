@@ -5,6 +5,17 @@ pipeline {
         jdk 'JDK21'     // Ensure JDK is installed
     }
     stages {
+        stage('Check Git Version') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        sh 'git --version'
+                    } else {
+                        bat 'git --version'
+                    }
+                }
+            }
+        }
         stage('Checkout Code') {
             steps {
                 git 'https://github.com/valtterikonen/DiceRoll.git'
@@ -37,5 +48,3 @@ pipeline {
         }
     }
 }
-
-
