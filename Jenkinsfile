@@ -3,6 +3,7 @@ pipeline {
     tools {
         maven 'Maven3'  // Ensure Maven is installed
         jdk 'JDK21'     // Ensure JDK is installed
+        git 'Git'       // Use the Git installation you configured
     }
     stages {
         stage('Check Git Version') {
@@ -48,3 +49,4 @@ pipeline {
         }
     }
 }
+
